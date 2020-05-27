@@ -7,8 +7,10 @@
 warna()
 }
 \value{
-If true, returns warning message, "Data spans more than one year. Data aggregated by unique month irrespective of year and one value returned".
+If true, returns warning message, "Data spans more than one year.
+Data aggregated by unique month irrespective of year and one value returned".
 }
 \description{
-Prints a warning message if data span more than one year and indicates method followed.
+Prints a warning message if data span more than one year and
+indicates method followed.
 }

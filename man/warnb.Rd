@@ -7,8 +7,10 @@
 warnb()
 }
 \value{
-If true, returns warning message, "Data spans more than one year. Calculations performed on all data and single value returned".
+If true, returns warning message, "Data spans more than one year.
+Calculations performed on all data and single value returned".
 }
 \description{
-Prints a warning message if data span more than one year and indicates method followed.
+Prints a warning message if data span more than one year and
+indicates method followed.
 }

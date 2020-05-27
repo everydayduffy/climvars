@@ -4,8 +4,7 @@
 \alias{summersoilmoist}
 \title{summersoilmoist: Soil moisture content during summer}
 \usage{
-summersoilmoist(startyear, endyear, soilnc, fi, startday = 152,
-  endday = 243)
+summersoilmoist(startyear, endyear, soilnc, fi, startday = 152, endday = 243)
 }
 \arguments{
 \item{startyear}{earliest calender year to be considered in calculations.}

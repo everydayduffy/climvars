@@ -4,8 +4,7 @@
 \alias{summerprecip}
 \title{summerprecip: Total Summer precipitation}
 \usage{
-summerprecip(startyear, endyear, precipnc, startday = 152,
-  endday = 243)
+summerprecip(startyear, endyear, precipnc, startday = 152, endday = 243)
 }
 \arguments{
 \item{startyear}{earliest calender year to be considered in calculations.}

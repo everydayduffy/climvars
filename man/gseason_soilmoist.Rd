@@ -23,6 +23,9 @@ A matrix of mean growing season soil moisture values over specified years.
 \description{
 \code{gseason_soilmoist} calculates the average soil moisture content during the growing season over specified years.
 }
+\details{
+
+}
 \examples{
 require(microclima)
 tme <- as.POSIXlt(c(0:1459) * 3600 * 6, origin = "2010-01-01 00:00", tz = "GMT")

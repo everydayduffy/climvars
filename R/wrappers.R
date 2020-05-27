@@ -123,7 +123,9 @@ tmecreate<- function(years, hourint = 6) {
   }
   diy <- sapply(years, lpfun)
   i <- sum(diy) * 24 / hourint -1
-  tme <- as.POSIXlt(c(0:i) * 3600 * hourint, origin = paste0(min(years), "-01-01 00:00"), tz = "GMT")
+  tme <- as.POSIXlt(c(0:i) * 3600 * hourint, origin = paste0(min(years),
+                                                             "-01-01 00:00"),
+                    tz = "GMT")
   tme
 }
 #'arraytonc: Create an nc file from an array
@@ -330,9 +332,11 @@ resamplenc<-function(filein1, filein2, varname, units, fileout) {
   nc_close(ncnew)
 }
 #'warna
-#'@description Prints a warning message if data span more than one year and indicates method followed.
+#'@description Prints a warning message if data span more than one year and
+#'indicates method followed.
 #'
-#'@return If true, returns warning message, "Data spans more than one year. Data aggregated by unique month irrespective of year and one value returned".
+#'@return If true, returns warning message, "Data spans more than one year.
+#'Data aggregated by unique month irrespective of year and one value returned".
 #'@export
 #'
 warna <- function() {
@@ -341,9 +345,11 @@ warna <- function() {
 }
 
 #'warnb
-#'@description Prints a warning message if data span more than one year and indicates method followed.
+#'@description Prints a warning message if data span more than one year and
+#'indicates method followed.
 #'
-#'@return If true, returns warning message, "Data spans more than one year. Calculations performed on all data and single value returned".
+#'@return If true, returns warning message, "Data spans more than one year.
+#'Calculations performed on all data and single value returned".
 #'@export
 #'
 warnb <- function() {

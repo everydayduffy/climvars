@@ -4,9 +4,20 @@
 \alias{gseason}
 \title{gseason: Calculates the period where plant growth is possible}
 \usage{
-gseason(year, precipnc, evapnc, tempnc, period = "monthly",
-  surplus = TRUE, lower = 5, upper = 35, nday = 1/24,
-  daynight = TRUE, merid = 0, dst = 0)
+gseason(
+  year,
+  precipnc,
+  evapnc,
+  tempnc,
+  period = "monthly",
+  surplus = TRUE,
+  lower = 5,
+  upper = 35,
+  nday = 1/24,
+  daynight = TRUE,
+  merid = 0,
+  dst = 0
+)
 }
 \arguments{
 \item{year}{calendar year.}
