@@ -66,7 +66,7 @@ bio19 <- function(temps, prec, tme1, tme2) {
       time_step <- id2
       # if temp is coarser tme than prec, then aggregate
     } else if(tme1[2] - tme1[1] > tme2[2] - tme2[1]) {
-      sq <- rep(1:length(tme2), each = id2/id)
+      sq <- rep(1:length(tme1), each = id2/id)
       prec <- aggregate(prec, by = list(sq), FUN = sum, na.rm = TRUE)$x
       time_step <- id
     } else {
