@@ -30,8 +30,8 @@ coldest quarter of the year.
 \details{
 If \code{temps} and \code{prec} vary in their temporal resolution, then they
 are harmonised by aggregation (mean for temperature or sum for precipitation).
-Then, each data point is treated as the start of a 90 day period for which
-summed temperature is calculated. Once the coldest 90 day period is
+Then, each data point is treated as the start of a 91 day period for which
+summed temperature is calculated. Once the coldest 91 day period is
 identified, the total precipitation for the same period is calculated and a
 single value returned. If data span more than one year, calculations are
 performed on all data and a single value returned.

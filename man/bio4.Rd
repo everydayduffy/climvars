@@ -18,12 +18,12 @@ a single numeric value representing annual temperature seasonality.
 }
 \description{
 \code{bio4} is used to calculate the differences in mean temperature
-between the warmest and coldest consecutive three month (90 day) period.
+between the warmest and coldest consecutive three month (91 day) period.
 }
 \details{
-Each provided temperature data point is treated as the start of a 90
+Each provided temperature data point is treated as the start of a 91
 day period for which mean temperature is calculated. The differences between
-consecutive 90 day means are then calculated, and the greatest absolute
+consecutive 91 day means are then calculated, and the greatest absolute
 difference returned.
 }
 \examples{

@@ -18,13 +18,13 @@ a single numeric value representing annual precipitation seasonality.
 }
 \description{
 \code{bio15} is used to calculate the differences in mean
-precipitation between the wettest and driest consecutive three month (90 day)
+precipitation between the wettest and driest consecutive three month (91 day)
 period.
 }
 \details{
 Each provided precipitation data point is treated as the start of a
-90 day period for which mean temperature is calculated. The differences
-between consecutive 90 day means are then calculated, and the greatest
+91 day period for which mean temperature is calculated. The differences
+between consecutive 91 day means are then calculated, and the greatest
 absolute difference returned.
 }
 \examples{
