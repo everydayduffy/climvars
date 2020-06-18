@@ -72,66 +72,7 @@ gsl <- function(gseason, year) {
   gsl
 }
 
-#' mst: Mean summer temperature
-#'
-#' @description `mst` calculates the mean temperature during summer, accounting for differences in the timing of the summer period for the northern and southern hemispheres.
-#'
-#' @param temp a three dimensional array of temperature values (deg C).
-#' @param year calendar year.
-#' @param startday assumed day of year of start of summer in northen hemisphere in non-leap year.
-#' @param endday assumed end of summer. Defaults are 1st June to 31st Aug.
-#' @param r a raster of same extent as temp coded as 1 for northern hemisphere and 0 for southern hemisphere.
-#'
-#' @return a matrix of mean summer temperature values.
-#' @export
-#'
-#' @importFrom raster getValues
-#'
-#' @details
-#' Seasons are flipped in the southern hemisphere. I.e. 1st June (day 152) = day 152+365/2+0.5 = 334 = 1st Dec.
-#' in leap years, 1 day added. Startday and endday should be for northern hemisphere, and are calculated for southern hemisphere within the function.
-#'
-#' @examples
-#' temp <- array(10 * sin(c(0:1459) / (pi * 150)) + rnorm(1460), dim=c(73,144,1460))
-#' m <- matrix(1, 73, 144)
-#' r <- raster(m, crs="+init=epsg:4326")
-#' extent(r) <- c(-1.25, 358.75, -91.25, 91.25)
-#' enorth<-extent(-1.25,358.75,0,91.25)
-#' esouth<-extent(-1.25,358.75,-91.25,0)
-#' rn<-crop(r,enorth) * 0 + 1
-#' rs<-crop(r,esouth) * 0
-#' r<-mosaic(rn,rs,fun=mean)
-#' mst(temp, 2010, startday = 152, endday = 243, r)
-#'
-mst <- function(temp, year, startday = 152, endday = 243, r) {
-  lpfun <- function(year) {
-    diy <- ifelse(year%%4 == 0, 366, 365)
-    if (year%%100 == 0 & year%%400 != 0) diy<-365
-    diy
-  }
-  diy<-lpfun(year)
-  startday <- ifelse(diy>365,startday+1,startday)
-  startsth <- startday +  floor(diy/2)
-  endday <- ifelse(diy>365,endday+1,endday)
-  endsth <- (endday + floor(diy/2))%%diy
-  rid <- dim(temp)[3] / diy
-  sn <- (startday - 1) * rid + 1
-  ss <- (startsth - 1) * rid + 1
-  en <- endday * rid
-  es <- endsth * rid
-  rcs <- en-sn+1
-  mn<-getValues(r,format="matrix")
-  ms <- mn+1
-  ms[ms==2] <-0
-  tnth<-temp[,,sn:en]
-  tsth1 <- temp[,,ss:(dim(temp)[3])]
-  tsth2 <- temp[,,1:es]
-  tnorth <- (apply(tnth,c(1,2),sum,na.rm=T)/rcs)*mn
-  tsouth <- ((apply(tsth1,c(1,2),sum,na.rm=T) + apply(tsth2,c(1,2),sum,na.rm=T))
-             / rcs) * ms
-  tsummer <- tnorth + tsouth
-  tsummer
-}
+
 #' ssm: Summer soil moisture content
 #'
 #' @description `ssm` calculates average soil moisture content over the summer period.
@@ -369,52 +310,7 @@ maxgstemp <- function(startyear, endyear, temp, gs) {
   gsmax<-apply(styear,c(1,2),mean,na.rm=T)
   gsmax
 }
-#' summertemp: Mean summer temperature
-#'
-#' @description `summertemp` calculates mean summer temperature across specified time period (years).
-#'
-#' @param startyear the earliest calendar year (AD) to be considered in the
-#' calculation.
-#' @param endyear the latest calendar year (AD) to be considered in the
-#' calculation.
-#' @param tempnc full path name of nc file containing temperature values for each year and with data extent: -1.25, 358.75, -91.25, 91.25 when converted to raster format.
-#' @param startday Indicates assumed day of year of start of summer in northern
-#' hemisphere in non-leap year. Default, 1st June.
-#' @param endday Indicates assumed day of year of end of summer in northern
-#' hemisphere in non-leap year. Default, 31st August.
-#'
-#' @import raster
-#' @import ncdf4
-#'
-#' @return a matrix of mean summer temperature values over the specified years.
-#' @export
-#'
-#' @details Function has been designed to run with raster data of dimensions 73 x 144.
-#' Seasons are flipped in southern hemisphere. I.e. 1st June (day 152) = day 152+365/2+0.5 = 334 = 1st Dec.
-#' in leap years, 1 day added. Startday and endday should be for northern hemisphere, and are calculated for southern hemisphere within the function.
-#'
-#' @seealso [mtoraster()]
-#' @seealso [nctarray()] to create array of temperature values from an nc file.
-#' @seealso Requires function [mst()] to be loaded.
-summertemp <- function(startyear, endyear, tempnc, startday = 152, endday = 243) {
-  dim3 <- endyear - startyear + 1
-  styear <- array(NA, dim = c(73, 144, dim3))
-  i <- 1
-  r<-raster(tempnc)
-  enorth<-extent(-1.25,358.75,0,91.25)
-  esouth<-extent(-1.25,358.75,-91.25,0)
-  rn<-crop(r,enorth) * 0 + 1
-  rs<-crop(r,esouth) * 0
-  r<-mosaic(rn,rs,fun=mean)
-  for (year in startyear:endyear) {
-    print(year)
-    temp <- nctoarray(tempnc)
-    styear[,,i] <- mst(temp, year, startday = startday, endday = endday, r)
-    i <- i +1
-  }
-  sumtemp<-apply(styear,c(1,2),mean,na.rm=T)
-  sumtemp
-}
+
 #' summersoilmoist: Soil moisture content during summer
 #'
 #' @description Calculates mean soil moisture content during the 6-month summer period.
