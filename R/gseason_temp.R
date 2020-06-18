@@ -28,11 +28,18 @@
 #'
 
 gseason_temp <- function(temps, tme, lower = 5, upper = 35, nday = 5) {
-  dint <- (24 * 3600) / (as.numeric(tme[2]) - as.numeric(tme[1]))
-  # moving window mean of temps
-  tma <- filter(temps, filter = rep(1/(nday*dint), nday*dint), sides = 2,
-                circular = TRUE)
-  gs <- ifelse(tma > lower, 1, 0)
-  gs <- ifelse(tma > upper, 0, gs)
-  return(gs)
+  if (length(unique(tme1$year)) > 1) warnb()
+  if (is.na(sd(prec, na.rm = TRUE)) | is.na(sd(evap, na.rm = TRUE))) {
+    gst <- NA
+  } else {
+    dint <- (24 * 3600) / (as.numeric(tme[2]) - as.numeric(tme[1]))
+    # moving window mean of temps
+    smooth_temp <- filter(temps, filter = rep(1/(nday*dint), nday*dint), sides = 2,
+                  circular = TRUE)
+    gst <- ifelse(smooth_temp > lower, 1, 0)
+    gst <- ifelse(smooth_temp > upper, 0, gst)
+
+  }
+  return(gst)
 }
+
