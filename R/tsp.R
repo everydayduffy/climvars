@@ -25,7 +25,6 @@ tsp <- function(prec, tme, northern_hemisphere = TRUE) {
     stop("Data span more than one year.")
   }
   yr <- unique(tme$year) + 1900
-  step <- as.numeric(tme[2])-as.numeric(tme[1])
 
   if(northern_hemisphere == TRUE) {
     spst <- as.POSIXlt(paste0(as.character(yr),"-06-01 00:00:00"))

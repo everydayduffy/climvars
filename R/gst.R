@@ -32,7 +32,7 @@
 gst <- function(temps, gs) {
   if(length(temps)!=length(gs)) stop("Temperature and growing season vectors are different lengths")
   tempg <- temps * gs
-  tempg[tempg==0] < -NA
+  tempg[tempg==0] <- NA
   mgst <- mean(tempg, na.rm = TRUE)
   return(mgst)
 }
