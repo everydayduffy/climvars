@@ -43,62 +43,6 @@ gssm <- function(gseason, soilm) {
   ysoil
 }
 
-#' tsp: Total summer precipitation
-#'
-#' @description `tsp` calculates total precipitation during the summer season
-#'
-#' @param prec a three dimensional array of precipitation values.
-#' @param startday assumed day of year of start of summer in northen hemisphere in non-leap year. Default is day 152 (1st June).
-#' @param endday assumed day of year of start of summer in northen hemisphere in non-leap year. Default is day 243 (31st August).
-#' @param r a raster object of same extent as temp coded as 1 for northern hemisphere and 0 for southern hemisphere.
-#'
-#' @importFrom raster getValues
-#'
-#' @return a matrix of total summer precipitation values for northern and southern hemisphere.
-#' @export
-#'
-#' @details Seasons are flipped in the southern hemisphere i.e. 1st June (day 152) = day 152+365/2+0.5 = 334 = 1st Dec.
-#' In leap years, 1 day is added.
-#'
-#' @examples
-#' prec <- array(10 * sin(c(0:1459) * (pi / -1400)) + runif(1460, 0, 10) +10, dim=c(73,144,1460))
-#' m <- matrix(1, 73, 144)
-#' r <- raster(m, crs="+init=epsg:4326")
-#' extent(r) <- c(-1.25, 358.75, -91.25, 91.25)
-#' enorth<-extent(-1.25,358.75,0,91.25)
-#' esouth<-extent(-1.25,358.75,-91.25,0)
-#' rn<-crop(r,enorth) * 0 + 1
-#' rs<-crop(r,esouth) * 0
-#' r<-mosaic(rn,rs,fun=mean)
-#' tsp(prec, 2010, startday = 152, endday = 243, r)
-tsp <- function(prec, year, startday = 152, endday = 243, r) {
-  lpfun <- function(year) {
-    diy <- ifelse(year%%4 == 0, 366, 365)
-    if (year%%100 == 0 & year%%400 != 0) diy<-365
-    diy
-  }
-  diy<-lpfun(year)
-  startday <- ifelse(diy>365,startday+1,startday)
-  startsth <- startday +  floor(diy/2)
-  endday <- ifelse(diy>365,endday+1,endday)
-  endsth <- (endday + floor(diy/2))%%diy
-  rid <- dim(prec)[3] / diy
-  sn <- (startday - 1) * rid + 1
-  ss <- (startsth - 1) * rid + 1
-  en <- endday * rid
-  es <- endsth * rid
-  rcs <- en-sn+1
-  mn <- getValues(r,format="matrix")
-  ms <- mn+1
-  ms[ms==2] <-0
-  pnth<-prec[,,sn:en]
-  psth1 <- prec[,,ss:(dim(prec)[3])]
-  psth2 <- prec[,,1:es]
-  pnorth <- apply(pnth,c(1,2),sum,na.rm=T)*mn
-  psouth <- (apply(psth1,c(1,2),sum,na.rm=T) + apply(psth2,c(1,2),sum,na.rm=T)) * ms
-  psummer <- pnorth + psouth
-  psummer
-}
 #' gsl: Growing season length
 #' @description `gsl` calculates the length of the growing season in decimal days.
 #'
@@ -382,50 +326,7 @@ gseasprec <- function(startyear, endyear, precip, gseason) {
   gsprec<-apply(styear,c(1,2),mean,na.rm=T)
   gsprec
 }
-#' summerprecip: Total Summer precipitation
-#'
-#' @description `summerprecip` calculates the total amount of precipitation falling in summer.
-#'
-#' @param startyear earliest calender year to be considered in calculations.
-#' @param endyear latest calender year to be considered in calculations.
-#' @param precipnc full path name of nc file containing precipitation values  and with data extent: -1.25, 358.75, -91.25, 91.25 when converted to raster format.
-#' @param startday assumed day of year of start of summer in northen hemisphere in non-leap year* (default 1st June).
-#' @param endday assumed day of year of end of summer in northen hemisphere in non-leap year* (default 31st Aug).
-#'
-#' @import raster
-#' @import ncdf4
-#'
-#' @return A matrix of mean growing degree days above 10 degrees Celcius during the growing season over the specified years.
-#' @export
-#'
-#' @details Function has been designed to run with raster data of dimensions 73 x 144.
-#' Seasons are flipped in southern hemisphere. I.e. 1st June (day 152) = day 152+365/2+0.5 = 334 = 1st Dec.
-#' in leap years, 1 day added. Startday and endday should be for northern hemisphere, and are calculated for southern hemisphere within the function.
-#'
-#' @seealso Requires function [tsp()] to be loaded.
-#' @seealso [mtoraster()] to convert output matrix to a raster.
-#' @seealso [nctarray()] to create an array from an nc file.
-#'
-summerprecip <- function(startyear, endyear, precipnc, startday = 152, endday = 243) {
-  dim3 <- endyear - startyear + 1
-  styear <- array(NA, dim = c(73, 144, dim3))
-  r<-raster(precipnc)
-  enorth<-extent(-1.25,358.75,0,91.25)
-  esouth<-extent(-1.25,358.75,-91.25,0)
-  rn<-crop(r,enorth) * 0 + 1
-  rs<-crop(r,esouth) * 0
-  r<-mosaic(rn,rs,fun=mean)
-  i<-1
-  for (year in startyear:endyear) {
-    print(year)
-    prec <- nctoarray(precipnc)
-    prec[prec<0] <- 0
-    styear[,,i] <- tsp(prec, year, startday = startday, endday = endday, r)
-    i <- i +1
-  }
-  sumprec<-apply(styear,c(1,2),mean,na.rm=T)
-  sumprec
-}
+
 #' gseasonlength: Growing season length
 #'
 #'@description `gseasonlength` calculates the average length of the growing season period (in days) across specified years.
