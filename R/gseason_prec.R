@@ -54,18 +54,16 @@ gseason_prec <- function(prec, evap, tme1, tme2, nday = 5) {
     } else {
       time_step <- id
     }
-
     # moving window mean of prec and evap
     smooth_prec <- filter(prec, filter = rep(1/(nday*time_step), nday*time_step),
                           sides = 2, circular = TRUE)
     smooth_evap <- filter(evap, filter = rep(1/(nday*time_step), nday*time_step),
                           sides = 2, circular = TRUE)
-
     # work out gseason for prec
     h_smooth_evap <- smooth_evap/2
     gsp <- smooth_prec
     gsp[which(smooth_prec <= h_smooth_evap)] <- 0
     gsp[which(smooth_prec > h_smooth_evap)] <- 1
   }
-  return(gsp)
+  return(as.vector(gsp))
 }
