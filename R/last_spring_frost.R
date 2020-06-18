@@ -14,7 +14,7 @@
 #'
 #' @details Spring dates are determined based on the hemisphere chosen. For the
 #' northern hemisphere Spring is assumed to begin 1st March and end on 31st May.
-#' For the southerm hemisphere, Spring is assumed to begin on 1st September and
+#' For the southern hemisphere, Spring is assumed to begin on 1st September and
 #' finish on 30th November. If no frosts occurred within the Spring period, NA
 #' is returned.
 #'
@@ -28,14 +28,13 @@
 #' last_spring_frost(temps, tme)
 #'
 
-# aggregate temps check? - check how it deals with 6/hourly/daily data.
-
 last_spring_frost <- function(temps, tme, northern_hemisphere = TRUE) {
 
   if (length(unique(tme$year)) > 1) {
     stop("Data span more than one year.")
   }
   yr <- unique(tme$year) + 1900
+  step <- as.numeric(tme[2])-as.numeric(tme[1])
 
   if(northern_hemisphere == TRUE) {
     spst <- as.POSIXlt(paste0(as.character(yr),"-03-01 00:00:00"))
@@ -50,7 +49,7 @@ last_spring_frost <- function(temps, tme, northern_hemisphere = TRUE) {
     lsf <- NA
   } else {
     ind <- tail(which(sptemps < 0), n = 1)
-    lsf <- spst + (3600 * ind)
+    lsf <- spst + (step * ind)
     lsf <- round(lsf, units = "day")
   }
   return(lsf)
