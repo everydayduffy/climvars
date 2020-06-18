@@ -17,10 +17,6 @@
 #' decimal degrees).
 #' @param lat a numeric value indicating the latitudinal position of data (in
 #' decimal degrees).
-#' @param period an optional character string defining time period of
-#' precipitation and evapotranspiration measurements. Options include "monthly"
-#' and "bimonthly". If left unspecified, assumed 'submonthly'.
-#' @param surplus either TRUE or FALSE.
 #' @param lower defines lower temperature limit where plant growth ceases
 #' (degrees Celcius) and growing season is switched off.
 #' @param upper defines upper temeprature limit where plant growth ceases
