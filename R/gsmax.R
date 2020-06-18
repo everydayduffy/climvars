@@ -5,6 +5,8 @@
 #' @param temps a vector of temperature values.
 #' @param gs a vector of binary values indicating growing conditions
 #' (1) = yes, (0) = no.
+#' @param max_percentile maximum percentile used for calculating the maximum.
+#' Default is 99%.
 #'
 #' @return a single numeric value of the maximum temperature during growing
 #' conditions.
@@ -27,10 +29,10 @@
 #' gs <- gseason(temps, prec, evap, tme1, tme2, tme3, lon, lat)
 #' maxgst <- gsmax(temps, gs)
 #'
-gsmax <- function(temps, gs) {
+gsmax <- function(temps, gs, max_percentile = 0.99) {
   if(length(temps)!=length(gs)) stop("Temperature and growing season vectors are different lengths")
   tempg <- temps * gs
-  tempg[tempg==0] < -NA
-  mxgst <- max(tempg, na.rm = TRUE)
+  tempg[tempg==0] <- NA
+  mxgst <- quantile(tempg, max_percentile, na.rm = TRUE)
   return(mxgst)
 }
