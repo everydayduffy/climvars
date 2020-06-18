@@ -71,31 +71,7 @@ gsl <- function(gseason, year) {
   gsl <- apply(gseason,c(1,2),sum,na.rm=T) / rid
   gsl
 }
-#' gsmax: Maximum temperature during the growing season
-#'
-#' @description Calculates maximum air temperature during the growing season.
-#'
-#' @param temp a three dimensional array of temperature values.
-#' @param gseason a three dimensional array of binary values (1 = growing season, 0 = not growing season).
-#'
-#' @return a matrix of values of maximum growing season temperatures.
-#' @export
-#'
-#' @seealso the [gseason()] function can be used to create an array of growing conditions (1) = yes, (0) = no accounting for temperature, precipitation and daylight hours.
-#'
-#' @examples
-#' temp <- array(10 * sin(c(0:1459) / (pi * 150)) + rnorm(1460), dim=c(73,144,1460))
-#' tme <- tmecreate(2010, 6)
-#' gs <- gseason_day(tme, 6, 21)
-#' gseason <- array(gs, dim=c(73, 144, 1460))
-#' maxgst <- gsmax(temp, gseason)
-gsmax <- function(temp, gseason) {
-  gseason[gseason == 0] <- NA
-  gstemp<-temp*gseason
-  gstemp[is.na(gstemp)==TRUE] <- 0
-  gsmax<-apply(gstemp, c(1,2), max, na.rm=TRUE)
-  gsmax
-}
+
 #' mst: Mean summer temperature
 #'
 #' @description `mst` calculates the mean temperature during summer, accounting for differences in the timing of the summer period for the northern and southern hemispheres.
