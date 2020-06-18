@@ -25,45 +25,7 @@ sisimple <- function(localtime, lat, long, julian, merid = 0, dst = 0) {
   index[index < 0] <- 0
   index
 }
-#'nctoarray: Creates an array containing data within an nc file
-#'
-#'@description `nctoarray` is used to create a three-dimensional array
-#'containing data from a .nc file.
-#'
-#'@param filein A character string with the full path name of the nc file. Tilde-expansion is performed.
-#'@param varid The variable to be read from the ncfile. Can be a string with the
-#'name of the variable or an object of class ncvar4. If left unspecified, the
-#'function will determine if there is only one variable in the file and, if
-#'so, read from that. If left unspecified and there are multiple variables in
-#'the file, an error is generated.
-#'
-#'@import ncdf4
-#'
-#'@return a three-dimensional array of the specified variable, permuted to dimension order 2, 1, 3.
-#'@export
-#'
-#'@examples
-#'# ========= Create nc file of random data and save to disk ============= #
-#' longs <- ncdim_def(name="lon", units = "degrees_east",
-#'                    vals = seq(1,10,1),longname="longitude")
-#' lats <- ncdim_def(name="lat",  units = "degrees_north",vals=seq(1,10,1),
-#'                   longname="latitude")
-#' times <- ncdim_def(name="time",units="hours since 1983-01-01 00:00:00",
-#'                    vals=c(101:110))
-#' mydata <-ncvar_def(name="Random data", units="mm", dim = list(longs, lats, times))
-#' ncnew <- nc_create(filename="Random.nc", mydata)
-#' ncvar_put(ncnew, mydata, vals = array(rnorm(10000), dim = c(10,10,10)))
-#' nc_close(ncnew)
-#'
-#'# ========= Read in as array ============================= #
-#'arr <- nctoarray("Random.nc", varid = "Random data")
-#'dim(arr)
-nctoarray <- function(filein, varid = NA) {
-  nc <- nc_open(filein)
-  a <- aperm(ncvar_get(nc, varid = varid), c(2,1,3))
-  nc_close(nc)
-  a
-}
+
 #'resamplearray: resamples an array to the dimensions of another array
 #'
 #'@description reformats data in an array and creates a new array objects to
@@ -128,54 +90,7 @@ tmecreate<- function(years, hourint = 6) {
                     tz = "GMT")
   tme
 }
-#'arraytonc: Create an nc file from an array
-#'
-#'@description `arraytonc` creates a new netCDF file from an array object.
-#'
-#'@param a the array containing the data to be used to create the new netCDF file.
-#'@param fileout the name and location of the nteCDF file to be created.
-#'@param varname the name of the variable to be created (character string).
-#'@param units The variable's units (character string). Or, pass a zero length string (") to have no units attribute.
-#'@param r a raster file with extent parameters that the new netCDF file should follow.
-#'@param tme an object of class `POSIXlt` representing calendar dates and times.
-#'@param baseyear the calendar year that measurements began.
-#'
-#'@import ncdf4
-#'@import raster
-#'
-#'@return an object of class ncdf4 that has the fields described above and is saved to the location specified by 'fileout'.
-#'@export
-#'
-#'@seealso the [tmecreate()] function can be used to create a POSIXlt object.
-#'
-#'mydata <- array(rnorm(1460), dim = c(2,2,1460))
-#'r <- raster(mydata[,,1])
-#'tme <- tmecreate(2010, 6)
-#'arraytonc (mydata, "new.nc", varname = "6-hourly air temperature", units = "degrees Celcius", r, tme, baseyear = 1900)
-#'
-arraytonc <- function(a, fileout, varname, units, r, tme, baseyear = 1900) {
-  yrs <- c(baseyear:1969)
-  hiy <- ifelse(yrs%%4 == 0, 366,365)
-  hiy <- ifelse(yrs%%100 == 0 & yrs%%400 != 0, 365, hiy)
-  tout <- as.numeric(tme) / 3600 + sum(hiy)
-  e <- extent(r)
-  ao <- aperm(a, c(2,1,3))
-  stplat <- (e@ymax - e@ymin)/ dim(r)[1]
-  stplon <- (e@xmax - e@xmin)/ dim(r)[2]
-  latseq <- rev(seq((e@ymin + 0.5 * stplat), (e@ymax - 0.5 * stplat), stplat))
-  lonseq <- seq((e@xmin + 0.5 * stplon), (e@xmax - 0.5 * stplon), stplon)
-  long <- ncdim_def(name = "lon", units = "degrees_east",
-                    vals = lonseq, longname = "longitude")
-  lat<-ncdim_def(name = "lat", units = "degrees_north",
-                 vals = latseq, longname = "latitude")
-  ntme<-ncdim_def(name = "time",
-                  units = paste0("hours since ", baseyear, "-01-01 00:00:00"),
-                  vals = tout)
-  varn <- ncvar_def(varname, units = units, dim=list(long,lat,ntme))
-  ncnew <- nc_create(filename = fileout, varn)
-  ncvar_put(ncnew, varn, vals = ao)
-  nc_close(ncnew)
-}
+
 #'submonthly'
 #'
 #'@description `submonthly` is used to create a list representing each measurement per half-month.
@@ -204,11 +119,13 @@ submonthly <- function(tme, div = 2) {
   bwm[-1]
 }
 #'cumsumseq
-#'#'@description `cumsumseq` is used to create a vector of values indicating growing season conditions for the specified time period.
+#'#'@description `cumsumseq` is used to create a vector of values indicating
+#'growing season conditions for the specified time period.
 #'
 #'@param gs a vector of binary values indicating growing season (1) or non-growing season (0).
 #'@param ehour a vector of evapotranspiration values.
-#'@param div numeric object specifying the value by which to divide total days of each month.
+#'@param div numeric object specifying the value by which to divide total days
+#'of each month.
 #'
 #'@return a vector of numeric values alternating between 0 and 1.
 #'@export
@@ -236,101 +153,7 @@ cumsumseq <- function(gs, ehour, div) {
   }
   gs
 }
-#'mtoraster: Convert a matrix to raster object
-#'
-#'@description `mtoraster` converts a matrix of global values to raster format.
-#'
-#'@param m a matrix of values.
-#'@param centre if true, centres values to prime meridian (longitude 0°).
-#'@param mask option to mask land/sea from plotted values.
-#'
-#'@import raster
-#'
-#'@return a raster object.
-#'@export
-#'
-#'@details the function is written for the conversion of matrices of dimensions 73 x 144.
-#'
-#'@examples
-#'m <- matrix(rnorm(0:72), 73, 144)
-#'r <- mtoraster(m)
-#'
-mtoraster <- function(m, centre = TRUE, mask = NA) {
-  if (centre) {
-    m <- cbind(m[,73:144], m[,1:72])
-    if (class(mask) == "matrix" | class(mask) == "array") {
-      mask <- cbind(mask[,73:144], mask[,1:72])
-      mask[which(mask == 0)] <- NA
-      m <- m * mask
-    }
-    e <- extent(c(-181.25, 178.75, -91.25, 91.25))
-    r <- raster(m)
-    extent(r) <- e
-  }
-  else {
-    if (class(mask) == "matrix" | class(mask) == "array") {
-      mask <- cbind(mask[,73:144], mask[,1:72])
-      mask[which(mask == 0)] <- NA
-      m <- m * mask
-    }
-    e <- extent(c(-1.25, 358.75, -91.25, 91.25))
-    r <- raster(m)
-    extent(r) <- e
-  }
-  r
-}
-#'resamplenc: Reformat an nc file to new dimensions.
-#'
-#'@description `resamplenc` is used to reformat data an nc file to the same dimensions as the data in `filein1`.
-#'
-#'@param filein1 master nc file.
-#'@param filein2 nc file to undergo reformatting.
-#'@param var time dimension to be left unchanged.
-#'@param varname the name of the variable to be created (character string).
-#'@param units the variable's units (character string). Or, pass a zero length string (") to have no units attributed.
-#'@param fileout full path name of the new nc file to be created.
-#'
-#'@import raster
-#'@import ncdf4
-#'
-#'@return a .nc file with the same dimensions as filein1.
-#'@export
-#'
-#'@details recording period for filein2 is left unchanged.
-#'
-#'@seealso `nctoarray`
-#'
-#'@examples to follow once there are two nc files with different latitude and longitude dimensions in the data.
-#'
-resamplenc<-function(filein1, filein2, varname, units, fileout) {
-  r1 <-raster(filein1, band=1)
-  r2 <- raster(filein2, band = 1)
-  nc <- nc_open(filein2)
-  tme <- ncvar_get(nc, var = "time")
-  nc_close(nc)
-  a <- nctoarray(filein2)
-  ao <- array(NA, dim = c(dim(r1)[1:2], dim(a)[3]))
-  for (i in 1:dim(a)[3]) {
-    m <- a[,,i]
-    rin <- raster(m, template = r2)
-    rou <- resample(rin, r1)
-    ao[,,i] <- getValues(rou, format = "matrix")
-  }
-  ao2 <- aperm(ao,c(2,1,3))
-  e <- extent(r1)
-  stplat <- (e@ymax - e@ymin)/ dim(r1)[1]
-  stplon <- (e@xmax - e@xmin)/ dim(r1)[2]
-  latseq <- seq((e@ymin + 0.5 * stplat), (e@ymax - 0.5 * stplat), stplat)
-  latseq <- rev(latseq)
-  lonseq <- seq((e@xmin + 0.5 * stplon), (e@xmax - 0.5 * stplon), stplon)
-  long <- ncdim_def(name="lon",units="degrees_east",vals=lonseq,longname="longitude")
-  lat <- ncdim_def(name="lat",units="degrees_north",vals=latseq,longname="latitude")
-  ntme <- ncdim_def(name="time",units="hours since 1900-01-01 00:00:00",vals=tme)
-  varinfo <- ncvar_def(varname, units, dim=list(long,lat,ntme))
-  ncnew <- nc_create(filename="fileout",varinfo)
-  ncvar_put(ncnew,varinfo,vals=ao2)
-  nc_close(ncnew)
-}
+
 #'warna
 #'@description Prints a warning message if data span more than one year and
 #'indicates method followed.

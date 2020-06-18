@@ -3,7 +3,8 @@
 \name{cumsumseq}
 \alias{cumsumseq}
 \title{cumsumseq
-#'@description \code{cumsumseq} is used to create a vector of values indicating growing season conditions for the specified time period.}
+#'@description \code{cumsumseq} is used to create a vector of values indicating
+growing season conditions for the specified time period.}
 \usage{
 cumsumseq(gs, ehour, div)
 }
@@ -12,14 +13,16 @@ cumsumseq(gs, ehour, div)
 
 \item{ehour}{a vector of evapotranspiration values.}
 
-\item{div}{numeric object specifying the value by which to divide total days of each month.}
+\item{div}{numeric object specifying the value by which to divide total days
+of each month.}
 }
 \value{
 a vector of numeric values alternating between 0 and 1.
 }
 \description{
 cumsumseq
-#'@description \code{cumsumseq} is used to create a vector of values indicating growing season conditions for the specified time period.
+#'@description \code{cumsumseq} is used to create a vector of values indicating
+growing season conditions for the specified time period.
 }
 \examples{
 gs <- c(0,0,1,1,1,1,0,0,1,1,0)
