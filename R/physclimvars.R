@@ -244,39 +244,6 @@ gseasprec <- function(startyear, endyear, precip, gseason) {
   gsprec
 }
 
-#' gseasonlength: Growing season length
-#'
-#'@description `gseasonlength` calculates the average length of the growing season period (in days) across specified years.
-#'
-#' @param startyear earliest calender year to be considered in calculations.
-#' @param endyear latest calender year to be considered in calculations.
-#' @param gseason a 3-dimensional array of growing season values for each year (1 = growing season, 0 = non-growing season).
-#'
-#' @import raster
-#' @import ncdf4
-#'
-#' @return A matrix of mean growing season length (number of days) over specified years.
-#' @export
-#'
-#' @details Some details required here
-#'
-#' @seealso the [gseason()] function can be used to create an array of growing conditions (1) = yes, (0) = no accounting for temperature, precipitation and daylight hours.
-#' @seealso [mtoraster()] to convert a matrix to a raster object.
-#' @seealso [nctarray()] to create array from an nc file.
-#' @seealso Requires function `gsl` to be loaded.
-#'
-gseasonlength <- function(startyear, endyear, gseason)  {
-  dim3 <- endyear - startyear + 1
-  styear <- array(NA, dim = c(dim(gseason)[1:2], dim3))
-  i <- 1
-  for (year in startyear:endyear) {
-    print(year)
-    styear[,,1] <- gsl(gseason, year)
-    i <- i +1
-  }
-  gsl <- apply(styear,c(1,2),mean,na.rm=T)
-  gsl
-}
 #'maxgstemp: Maximum temperature during the growing season
 #'
 #' @description Calculates the maximum air temperature during the growing season across specified years.
