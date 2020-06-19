@@ -45,16 +45,17 @@
 #' @seealso [gseason_day()] calculates day/night time.
 #' @seealso [tmecreate()] can be used to create a POSIXlt object.
 #'
-#'temps <- hourly_temps
-#'prec <- hourly_prec
-#'evap <- prec + rnorm(length(prec)) - rnorm(length(prec))
+#' @examples
+#' temps <- hourly_temps
+#' prec <- hourly_prec
+#' evap <- prec + rnorm(length(prec)) - rnorm(length(prec))
 #'
-#'tme1 <- tmecreate(2010,1)
-#'tme2 <- tmecreate(2010,1)
-#'tme3 <- tmecreate(2010,1)
-#'lon <- -5
-#'lat <- 52
-#'out <- gseason(temps, prec, evap, tme1, tme2, tme3, lon, lat)
+#' tme1 <- tmecreate(2010,1)
+#' tme2 <- tmecreate(2010,1)
+#' tme3 <- tmecreate(2010,1)
+#' lon <- -5
+#' lat <- 52
+#' out <- gseason(temps, prec, evap, tme1, tme2, tme3, lon, lat)
 #'
 gseason <- function(temps, prec, evap, tme1, tme2, tme3, lon, lat, lower = 5,
                     upper = 35, nday = 5, daynight = TRUE, merid = 0, dst = 0) {
