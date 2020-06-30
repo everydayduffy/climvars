@@ -19,7 +19,7 @@
 #' decimal degrees).
 #' @param lower defines lower temperature limit where plant growth ceases
 #' (degrees Celcius) and growing season is switched off.
-#' @param upper defines upper temeprature limit where plant growth ceases
+#' @param upper defines upper temperature limit where plant growth ceases
 #' (degrees Celcius) and growing season is switched off.
 #' @param nday specifies the number of consecutive days of temperatures above
 #' `lower` or below `upper` before growing season start/end is accepted.
@@ -46,16 +46,12 @@
 #' @seealso [tmecreate()] can be used to create a POSIXlt object.
 #'
 #' @examples
-#' temps <- hourly_temps
-#' prec <- hourly_precip
-#' evap <- hourly_pev
-#'
-#' tme1 <- tmecreate(2010,1)
-#' tme2 <- tmecreate(2010,1)
-#' tme3 <- tmecreate(2010,1)
+#' tme <- tmecreate(2010,1)
 #' lon <- -5
 #' lat <- 52
-#' out <- gseason(temps, prec, evap, tme1, tme2, tme3, lon, lat)
+#' gseason(hourly_temps, hourly_precip, hourly_pev, tme, tme, tme, lon, lat)
+#' gseason(hourly_temps, hourly_precip, hourly_pev, tme, tme, tme, lon, lat,
+#' daynight = FALSE)
 #'
 gseason <- function(temps, prec, evap, tme1, tme2, tme3, lon, lat, lower = 5,
                     upper = 35, nday = 5, daynight = TRUE, merid = 0, dst = 0) {

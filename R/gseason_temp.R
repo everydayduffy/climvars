@@ -1,5 +1,5 @@
 #' gseason_temp: Calculate the growing season period as determined by
-#' temperature values.
+#' temperature.
 #'
 #' @description `gseason_temp` calculates growing season period where
 #' temperatures are above 'lower' and below 'upper' specified limits.
