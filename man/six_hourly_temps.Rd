@@ -4,7 +4,7 @@
 \name{six_hourly_temps}
 \alias{six_hourly_temps}
 \title{Six-hourly temperatures for 2019.}
-\format{A numeric vector.}
+\format{A numeric vector of temperatures (degrees ceclius).}
 \source{
 \url{https://www.ecmwf.int/en/era5-land}
 }
@@ -12,7 +12,7 @@
 six_hourly_temps
 }
 \description{
-A dataset containing six-hourly 2m air temperature measurements for 2019 from
+A dataset containing six-hourly 2m air temperature for 2019 from
 the ERA-5 Land dataset. Data for a location near Kinlochewe, Scotland
 (-5.2, 57.6).
 }
