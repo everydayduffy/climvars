@@ -26,11 +26,10 @@ precipitation in the wettest quarter returned. If data span more than one
 year, calculations are performed on all data and a single value returned.
 }
 \examples{
-prec <- (10 * sin(c(0:364) * (pi / -360)) + rnorm(365) + 12)
-tme <- tmecreate(2010, 24)
-plot(prec~as.POSIXct(tme), type = "l", xlab = "Month",
+tme <- tmecreate(2010, 1)
+plot(hourly_precip~as.POSIXct(tme), type = "l", xlab = "Month",
 ylab = "Precipitation")
-bio16(prec, tme)
+bio16(hourly_precip, tme)
 }
 \seealso{
 the \code{\link[=tmecreate]{tmecreate()}} function can be used to create a POSIXlt object.

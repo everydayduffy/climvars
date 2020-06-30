@@ -26,10 +26,10 @@ calculated from annual temperature values. If data span more than one year,
 calculations are performed on all data and a single value returned.
 }
 \examples{
-temps <- 10 * sin(c(0:1459) / (pi * 150)) + rnorm(1460)
-tme <- tmecreate(2010, 6)
-plot(temps~as.POSIXct(tme), type = "l", xlab = "Month", ylab = "Temperature")
-bio10(temps, tme)
+tme <- tmecreate(2010, 1)
+plot(hourly_temps~as.POSIXct(tme), type = "l", xlab = "Month",
+ylab = "Temperature")
+bio10(hourly_temps, tme)
 }
 \seealso{
 the \code{\link[=tmecreate]{tmecreate()}} function can be used to create a POSIXlt object.

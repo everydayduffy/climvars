@@ -28,12 +28,10 @@ between consecutive 91 day means are then calculated, and the greatest
 absolute difference returned.
 }
 \examples{
-prec <- (10 * sin(c(0:364) * (pi / -360)) + rnorm(365) + 12)
-tme <- tmecreate(2010, 24)
-plot(prec~as.POSIXct(tme), type = "l", xlab = "Month",
+tme <- tmecreate(2010, 1)
+plot(hourly_precip~as.POSIXct(tme), type = "l", xlab = "Month",
 ylab = "Precipitation")
-bio15(prec, tme)
-
+bio15(hourly_precip, tme)
 }
 \seealso{
 the \code{\link[=tmecreate]{tmecreate()}} function can be used to create a POSIXlt object.

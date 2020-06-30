@@ -25,9 +25,8 @@ a single numeric value of the total precipitation during summer.
 
 }
 \examples{
-prec <- hourly_prec
 tme <- tmecreate(2010, 1)
-tsp(prec, tme)
-tsp(prec, tme, northern_hemisphere = FALSE)
+tsp(hourly_precip, tme)
+tsp(hourly_precip, tme, northern_hemisphere = FALSE)
 
 }

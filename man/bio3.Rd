@@ -31,10 +31,10 @@ temperature. If data spans more than one year, data are aggregated by unique
 month irrespective of year and one value returned.
 }
 \examples{
-temps <- 10 * sin(c(0:1459) / (pi * 150)) + rnorm(1460)
-tme <- tmecreate(2010, 6)
-plot(temps~as.POSIXct(tme), type = "l", xlab = "Month", ylab = "Temperature")
-bio3(temps, tme)
+tme <- tmecreate(2010, 1)
+plot(hourly_temps~as.POSIXct(tme), type = "l", xlab = "Month", ylab = "Temperature")
+bio3(hourly_temps, tme)
+bio3(hourly_temps, tme, min_percentile = 0.05, max_percentile = 0.95)
 }
 \seealso{
 \code{\link[=bio2]{bio2()}} and \code{\link[=bio7]{bio7()}} for calculating diurnal and annual

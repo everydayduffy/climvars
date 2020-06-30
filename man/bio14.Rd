@@ -31,10 +31,11 @@ to 7 days. If data span more than one year, data across the whole period are
 considered and a single value returned.
 }
 \examples{
-prec <- (10 * sin(c(0:364) * (pi / -360)) + rnorm(365) + 12)
-tme <- tmecreate(2010, 24)
-plot(prec~as.POSIXct(tme), type = "l", xlab = "Month", ylab = "Precipitation")
-bio14(prec, tme, period = 7)
+tme <- tmecreate(2010, 1)
+plot(hourly_precip~as.POSIXct(tme), type = "l", xlab = "Month",
+ylab = "Precipitation")
+bio14(hourly_precip, tme)
+bio14(hourly_precip, tme, period = 30)
 }
 \seealso{
 the \code{\link[=tmecreate]{tmecreate()}} function can be used to create a POSIXlt object.
