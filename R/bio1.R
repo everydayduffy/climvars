@@ -20,12 +20,10 @@
 #' @seealso the [tmecreate()] function can be used to create a POSIXlt object.
 #'
 #' @examples
-#' temps <- 10 * sin(c(0:1459) / (pi * 150)) + rnorm(1460)
-#' tme <- tmecreate(2010, 6)
-#' plot(temps~as.POSIXct(tme), type = "l", xlab = "Month", ylab = "Temperature")
-#' bio1(temps, tme)
-#' bio1(temps, tme, method = "dailymaxmin")
-
+#' tme <- tmecreate(2010, 1)
+#' plot(hourly_temps~as.POSIXct(tme), type = "l", xlab = "Month", ylab = "Temperature")
+#' bio1(hourly_temps, tme)
+#' bio1(hourly_temps, tme, method = "dailymaxmin")
 
 bio1 <- function(temps, tme, method = "") {
   if (is.na(sd(temps, na.rm = TRUE)))

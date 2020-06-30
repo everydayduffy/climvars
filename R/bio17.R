@@ -18,11 +18,10 @@
 #' @seealso the [tmecreate()] function can be used to create a POSIXlt object.
 #'
 #' @examples
-#' prec <- (10 * sin(c(0:364) * (pi / -360)) + rnorm(365) + 12)
-#' tme <- tmecreate(2010, 24)
-#' plot(prec~as.POSIXct(tme), type = "l", xlab = "Month",
+#' tme <- tmecreate(2010, 1)
+#' plot(hourly_precip~as.POSIXct(tme), type = "l", xlab = "Month",
 #' ylab = "Precipitation")
-#' bio17(prec, tme)
+#' bio17(hourly_precip, tme)
 
 bio17 <- function(prec, tme) {
   if (is.na(sd(prec, na.rm = TRUE)))

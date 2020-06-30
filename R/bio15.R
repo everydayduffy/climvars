@@ -20,12 +20,10 @@
 #' @seealso the [tmecreate()] function can be used to create a POSIXlt object.
 #'
 #' @examples
-#' prec <- (10 * sin(c(0:364) * (pi / -360)) + rnorm(365) + 12)
-#' tme <- tmecreate(2010, 24)
-#' plot(prec~as.POSIXct(tme), type = "l", xlab = "Month",
+#' tme <- tmecreate(2010, 1)
+#' plot(hourly_precip~as.POSIXct(tme), type = "l", xlab = "Month",
 #' ylab = "Precipitation")
-#' bio15(prec, tme)
-#'
+#' bio15(hourly_precip, tme)
 
 bio15 <- function(prec, tme) {
   if (is.na(sd(prec, na.rm = TRUE)))
@@ -34,12 +32,12 @@ bio15 <- function(prec, tme) {
       if (length(unique(tme$year)) > 1) warnb()
       period <- 91
       id <- 86400 / (as.numeric(tme[2]) - as.numeric(tme[1])) # num temps per day
-      # function to calculate mean temps over x period
+      # function to calculate mean prec over x period
       mprec <- function(i, period, id, prec) {
         prec_mod <- c(prec, prec)
         prec_mean <- mean(prec_mod[i: (i + (period * id) - 1)], na.rm = TRUE)
       }
-      # 3 monthly means for each temp var
+      # 3 monthly means for each prec var
       mseas <- sapply(c(1:length(prec)), FUN = mprec, period = period, id = id,
                       prec = prec)
       # lagged differences

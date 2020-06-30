@@ -20,16 +20,15 @@
 #'
 #' @examples
 #' # hourly
-#' temps <- 10 * sin(c(0:8759) / (pi * 900)) + rnorm(8760)
-#' tme <- tmecreate(2010, 1)
+#' tme1 <- tmecreate(2010, 1)
 #' # 6-hourly
-#' temps <- 10 * sin(c(0:1459) / (pi * 150)) + rnorm(1460)
-#' tme <- tmecreate(2010, 6)
+#' tme2 <- tmecreate(2010, 6)
 #' # daily
-#' temps <- 10 * sin(c(0:364) / (pi * 37.5)) + rnorm(365)
-#' tme <- tmecreate(2010, 24)
-#' plot(temps~as.POSIXct(tme), type = "l", xlab = "Month", ylab = "Temperature")
-#' bio4(temps, tme)
+#' tme3 <- tmecreate(2010, 24)
+#' plot(hourly_temps~as.POSIXct(tme), type = "l", xlab = "Month", ylab = "Temperature")
+#' bio4(hourly_temps, tme)
+#' bio4(six_hourly_temps, tme2)
+#' bio4(daily_temps, tme3)
 
 bio4 <- function(temps, tme) {
   if (is.na(sd(temps, na.rm = TRUE)))

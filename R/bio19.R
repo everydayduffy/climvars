@@ -28,27 +28,17 @@
 #'
 #' @examples
 #' # hourly
-#' temps <- 10 * sin(c(0:8759) / (pi * 900)) + rnorm(8760)
 #' tme1 <- tmecreate(2010, 1)
 #' # 6-hourly
-#' temps <- 10 * sin(c(0:1459) / (pi * 150)) + rnorm(1460)
-#' tme1 <- tmecreate(2010, 6)
-#' # daily
-#' temps <- 10 * sin(c(0:364) / (pi * 37.5)) + rnorm(365)
-#' tme1 <- tmecreate(2010, 24)
-#' plot(temps~as.POSIXct(tme), type = "l", xlab = "Month", ylab = "Temperature")
-#' # hourly
-#' prec <- (10 * sin(c(0:8759) * (pi / -9000)) + rnorm(8760) + 14)
-#' tme2 <- tmecreate(2010, 1)
-#' # 6-hourly
-#' prec <- (10 * sin(c(0:1459) * (pi / -1500)) + rnorm(1460) + 14)
 #' tme2 <- tmecreate(2010, 6)
 #' # daily
-#' prec <- (10 * sin(c(0:364) * (pi / -360)) + rnorm(365) + 14)
-#' tme2 <- tmecreate(2010, 24)
-#' plot(prec~as.POSIXct(tme2), type = "l", xlab = "Month",
+#' tme3 <- tmecreate(2010, 24)
+#' plot(hourly_temps~as.POSIXct(tme), type = "l", xlab = "Month",
+#' ylab = "Temperature")
+#' plot(hourly_precip~as.POSIXct(tme), type = "l", xlab = "Month",
 #' ylab = "Precipitation")
-#' bio19(temps, prec, tme1, tme2)
+#' bio19(hourly_temps, hourly_precip, tme1, tme1)
+#' bio19(hourly_temps, daily_precip, tme1, tme3)
 
 bio19 <- function(temps, prec, tme1, tme2) {
   if (is.na(sd(prec, na.rm = TRUE)) | is.na(sd(temps, na.rm = TRUE)))

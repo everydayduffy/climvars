@@ -22,10 +22,10 @@
 #' temperature ranges. [tmecreate()] for creating a 'POSIXlt' object.
 #'
 #' @examples
-#' temps <- 10 * sin(c(0:1459) / (pi * 150)) + rnorm(1460)
-#' tme <- tmecreate(2010, 6)
-#' plot(temps~as.POSIXct(tme), type = "l", xlab = "Month", ylab = "Temperature")
-#' bio3(temps, tme)
+#' tme <- tmecreate(2010, 1)
+#' plot(hourly_temps~as.POSIXct(tme), type = "l", xlab = "Month", ylab = "Temperature")
+#' bio3(hourly_temps, tme)
+#' bio3(hourly_temps, tme, min_percentile = 0.05, max_percentile = 0.95)
 
 bio3 <- function(temps, tme, min_percentile = 0.01, max_percentile = 0.99) {
   if (is.na(sd(temps, na.rm = TRUE)))
