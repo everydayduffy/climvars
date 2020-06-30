@@ -74,6 +74,19 @@ exceeds half potential evapotranspiration.
 The growing season period is defined as the period where
 temperatures are >5 degree Celcius and <35 degree Celcius and precipitation0.5 PET.
 }
+\examples{
+temps <- hourly_temps
+prec <- hourly_precip
+evap <- hourly_pev
+
+tme1 <- tmecreate(2010,1)
+tme2 <- tmecreate(2010,1)
+tme3 <- tmecreate(2010,1)
+lon <- -5
+lat <- 52
+out <- gseason(temps, prec, evap, tme1, tme2, tme3, lon, lat)
+
+}
 \seealso{
 \code{\link[=gseason_prec]{gseason_prec()}} calculates period where precipitation exceeds half
 evapotranspiration.
@@ -84,15 +97,4 @@ limit for plant growth and below upper limit for plant growth.
 \code{\link[=gseason_day]{gseason_day()}} calculates day/night time.
 
 \code{\link[=tmecreate]{tmecreate()}} can be used to create a POSIXlt object.
-
-temps <- hourly_temps
-prec <- hourly_prec
-evap <- prec + rnorm(length(prec)) - rnorm(length(prec))
-
-tme1 <- tmecreate(2010,1)
-tme2 <- tmecreate(2010,1)
-tme3 <- tmecreate(2010,1)
-lon <- -5
-lat <- 52
-out <- gseason(temps, prec, evap, tme1, tme2, tme3, lon, lat)
 }

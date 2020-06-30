@@ -28,7 +28,7 @@
 #'
 
 gseason_temp <- function(temps, tme, lower = 5, upper = 35, nday = 5) {
-  if (length(unique(tme1$year)) > 1) warnb()
+  if (length(unique(tme$year)) > 1) warnb()
   if (is.na(sd(prec, na.rm = TRUE)) | is.na(sd(evap, na.rm = TRUE))) {
     gst <- NA
   } else {

@@ -4,13 +4,16 @@
 \alias{gsmax}
 \title{gsmax: Calculate maximum temperature during the growing season.}
 \usage{
-gsmax(temps, gs)
+gsmax(temps, gs, max_percentile = 0.99)
 }
 \arguments{
 \item{temps}{a vector of temperature values.}
 
 \item{gs}{a vector of binary values indicating growing conditions
 (1) = yes, (0) = no.}
+
+\item{max_percentile}{maximum percentile used for calculating the maximum.
+Default is 99\%.}
 }
 \value{
 a single numeric value of the maximum temperature during growing

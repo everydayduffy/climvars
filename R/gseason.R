@@ -47,8 +47,8 @@
 #'
 #' @examples
 #' temps <- hourly_temps
-#' prec <- hourly_prec
-#' evap <- prec + rnorm(length(prec)) - rnorm(length(prec))
+#' prec <- hourly_precip
+#' evap <- hourly_pev
 #'
 #' tme1 <- tmecreate(2010,1)
 #' tme2 <- tmecreate(2010,1)
