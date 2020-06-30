@@ -14,10 +14,9 @@
 #' @details
 #'
 #' @examples
-#' prec <- hourly_prec
 #' tme <- tmecreate(2010, 1)
-#' tsp(prec, tme)
-#' tsp(prec, tme, northern_hemisphere = FALSE)
+#' tsp(hourly_precip, tme)
+#' tsp(hourly_precip, tme, northern_hemisphere = FALSE)
 #'
 
 tsp <- function(prec, tme, northern_hemisphere = TRUE) {
@@ -31,7 +30,6 @@ tsp <- function(prec, tme, northern_hemisphere = TRUE) {
     spen <- as.POSIXlt(paste0(as.character(yr),"-09-01 00:00:00"))
 
     spprec <- prec[tme >= spst & tme <= spen]
-
   } else {
     # have to split southern summer in two
     spst1 <- as.POSIXlt(paste0(as.character(yr),"-12-01 00:00:00"))
@@ -43,7 +41,6 @@ tsp <- function(prec, tme, northern_hemisphere = TRUE) {
     spprec2 <- prec[tme >= spst2 & tme <= spen2]
     spprec <- c(spprec1, spprec2)
   }
-
   psummer <- sum(spprec)
   return(psummer)
 }

@@ -16,11 +16,9 @@
 #' @details
 #'
 #' @examples
-#' temps <- hourly_temps
 #' tme <- tmecreate(2010, 1)
-#' mean_sum_temps <- mst(temps, tme)
-#' mean_sum_temps <- mst(temps, tme, northern_hemisphere = FALSE)
-#'
+#' mst(hourly_temps, tme)
+#' mst(hourly_temps, tme, northern_hemisphere = FALSE)
 
 mst <- function(temps, tme, northern_hemisphere = TRUE) {
   if (length(unique(tme$year)) > 1) {
@@ -45,8 +43,6 @@ mst <- function(temps, tme, northern_hemisphere = TRUE) {
     sptemps2 <- temps[tme >= spst2 & tme <= spen2]
     sptemps <- c(sptemps1, sptemps2)
   }
-
   mtsummer <- mean(sptemps)
   return(mtsummer)
-
 }
