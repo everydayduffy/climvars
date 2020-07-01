@@ -21,8 +21,10 @@
 #' (degrees Celcius) and growing season is switched off.
 #' @param upper defines upper temperature limit where plant growth ceases
 #' (degrees Celcius) and growing season is switched off.
-#' @param nday a single numeric value defining the number of days over which to
-#' smooth the data.
+#' @param t_nday a single numeric value defining the number of days over which
+#' to smooth temperature.
+#' @param p_nday a single numeric value defining the number of days over which
+#' to smooth precipitation and evapotranspiration data.
 #' @param daynight if TRUE, growing season is continuous over 24 hours, if
 #' FALSE, only calculates growing season during the day.
 #' @param merid an optional numeric value representing the longitude (decimal
@@ -54,10 +56,11 @@
 #' daynight = FALSE)
 #'
 gseason <- function(temps, prec, evap, tme1, tme2, tme3, lon, lat, lower = 5,
-                    upper = 35, nday = 5, daynight = TRUE, merid = 0, dst = 0) {
-  gtemp <- gseason_temp(temps, tme1, lower, upper, nday)
-  gprec <- gseason_prec(prec, evap, tme2, tme3, nday)
-  if (daynight == TRUE) {
+                    upper = 35, t_nday = 5, p_nday = 28, daynight = FALSE,
+                    merid = 0, dst = 0) {
+  gtemp <- gseason_temp(temps, tme1, lower, upper, t_nday)
+  gprec <- gseason_prec(prec, evap, tme2, tme3, p_nday)
+  if (daynight == FALSE) {
     gdn <- gseason_day(tme1, lat, lon, merid, dst)
     gscombo <- gprec * gtemp * gdn
   } else {
