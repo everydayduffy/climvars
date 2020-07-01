@@ -16,10 +16,7 @@ Remotes: ilyamaclean/ecohydrotools
 Imports:
     raster (>= 2.5.8),
     sp (>= 1.2),
-    ncdf4 (>= 1.16),
-    zoo,
-    microclima,
-    ecohydrotools
+    zoo
 RoxygenNote: 7.0.1
 Roxygen: list(markdown = TRUE) 
 Suggests:
