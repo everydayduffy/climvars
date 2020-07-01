@@ -12,7 +12,7 @@ License: GPL-2
 Encoding: UTF-8
 LazyData: true
 Remotes: 
-    ilyamaclean/microclima
+    ilyamaclean/microclima,
     ilyamaclean/ecohydrotools
 Imports:
     raster (>= 2.5.8),
