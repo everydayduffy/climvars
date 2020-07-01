@@ -19,7 +19,7 @@ Imports:
     sp (>= 1.2),
     ncdf4 (>= 1.16),
     zoo,
-    microclima
+    microclima,
     ecohydrotools
 RoxygenNote: 7.0.1
 Roxygen: list(markdown = TRUE) 
