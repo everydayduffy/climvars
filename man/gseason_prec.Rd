@@ -5,7 +5,7 @@
 \title{gseason_prec: Calculate the growing season period as determined by
 precipitation and evapotranspiration balance.}
 \usage{
-gseason_prec(prec, evap, tme1, tme2, nday = 5)
+gseason_prec(prec, evap, tme1, tme2, nday = 28)
 }
 \arguments{
 \item{prec}{a vector of precipitation values.}

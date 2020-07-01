@@ -5,7 +5,7 @@
 \title{Calculates volumetric soil moisture.}
 \usage{
 soil_moisture(
-  rain,
+  prec,
   evap,
   cn,
   s_depth = 0.5,
@@ -15,6 +15,8 @@ soil_moisture(
 )
 }
 \arguments{
+\item{prec}{a vector of precipitation values (mm).}
+
 \item{evap}{a vector of evapotranspiration values (mm).}
 
 \item{cn}{run-off curve number (see details).}
@@ -26,8 +28,6 @@ soil_moisture(
 \item{s_max}{volumetric water fraction at saturation (m^3 / m^3).}
 
 \item{smi}{initial volumetric soil water fraction.}
-
-\item{prec}{a vector of precipitation values (mm).}
 }
 \value{
 volumetric water fraction for each time step.

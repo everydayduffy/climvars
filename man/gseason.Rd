@@ -15,8 +15,9 @@ gseason(
   lat,
   lower = 5,
   upper = 35,
-  nday = 5,
-  daynight = TRUE,
+  t_nday = 5,
+  p_nday = 28,
+  daynight = FALSE,
   merid = 0,
   dst = 0
 )
@@ -49,8 +50,11 @@ decimal degrees).}
 \item{upper}{defines upper temperature limit where plant growth ceases
 (degrees Celcius) and growing season is switched off.}
 
-\item{nday}{a single numeric value defining the number of days over which to
-smooth the data.}
+\item{t_nday}{a single numeric value defining the number of days over which
+to smooth temperature.}
+
+\item{p_nday}{a single numeric value defining the number of days over which
+to smooth precipitation and evapotranspiration data.}
 
 \item{daynight}{if TRUE, growing season is continuous over 24 hours, if
 FALSE, only calculates growing season during the day.}

@@ -40,7 +40,7 @@
 #' plot(sm2, type = "l", col = "red", ylim = c(s_min, s_max),
 #'      xlab = "", ylab = "")
 #'
-soil_moisture <- function(rain, evap, cn, s_depth = 0.5, s_min = 0.074,
+soil_moisture <- function(prec, evap, cn, s_depth = 0.5, s_min = 0.074,
                          s_max = 0.422, smi = (s_max + s_min) / 2) {
   sm <- smi
   for (i in 1:length(rain)) {
