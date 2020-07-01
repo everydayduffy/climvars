@@ -28,12 +28,11 @@
 #'
 #' @examples
 #' # hourly
-
-#' tme1 <- tmecreate(2010, 1)
+#' tme1 <- tmecreate(2019, 1)
 #' # 6-hourly
-#' tme2 <- tmecreate(2010, 6)
+#' tme2 <- tmecreate(2019, 6)
 #' # daily
-#' tme3 <- tmecreate(2010, 24)
+#' tme3 <- tmecreate(2019, 24)
 #' plot(hourly_precip~as.POSIXct(tme1), type = "l", xlab = "Month",
 #' ylab = "Precipitation")
 #' bio18(hourly_temps, hourly_precip, tme1, tme2)
@@ -49,12 +48,12 @@ bio18 <- function(temps, prec, tme1, tme2) {
     id <- 86400 / (as.numeric(tme1[2]) - as.numeric(tme1[1]))
     id2 <- 86400 / (as.numeric(tme2[2]) - as.numeric(tme2[1]))
     # if precip is coarser tme than temp, then aggregate temps
-    if(tme2[2] - tme2[1] > tme1[2] - tme1[1]) {
+    if(id2 < id) {
       sq <- rep(1:length(tme2), each = id/id2)
       temps <- aggregate(temps, by = list(sq), FUN = mean, na.rm = TRUE)$x
       time_step <- id2
       # if temp is coarser tme than prec, then aggregate
-    } else if(tme1[2] - tme1[1] > tme2[2] - tme2[1]) {
+    } else if(id < id2) {
       sq <- rep(1:length(tme1), each = id2/id)
       prec <- aggregate(prec, by = list(sq), FUN = sum, na.rm = TRUE)$x
       time_step <- id
@@ -65,6 +64,7 @@ bio18 <- function(temps, prec, tme1, tme2) {
     temp_calc <- function(i, period, id, temps) {
       temp_mod <- c(temps, temps)
       temp_sum <- sum(temp_mod[i: (i + (period * id) - 1)], na.rm = TRUE)
+      return(temp_sum)
     }
     # 3 monthly sums for each prec value
     sum_temps <- sapply(c(1:length(temps)), FUN = temp_calc, period = period,
