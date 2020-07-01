@@ -33,7 +33,7 @@
 #' gseason_prec(prec, evap, tme1, tme2, nday = 10)
 #'
 
-gseason_prec <- function(prec, evap, tme1, tme2, nday = 5) {
+gseason_prec <- function(prec, evap, tme1, tme2, nday = 28) {
   if (length(unique(tme1$year)) > 1) warnb()
   if (length(unique(tme2$year)) > 1) warnb()
   if (is.na(sd(prec, na.rm = TRUE)) | is.na(sd(evap, na.rm = TRUE))) {
