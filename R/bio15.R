@@ -15,12 +15,14 @@
 #' @details Each provided precipitation data point is treated as the start of a
 #' 91 day period for which mean temperature is calculated. The differences
 #' between consecutive 91 day means are then calculated, and the greatest
-#' absolute difference returned.
+#' absolute difference returned. Mean values are calculated at the temporal
+#' resolution of the input data (i.e. hourly, six-hourly or daily means yield
+#' different results).
 #'
 #' @seealso the [tmecreate()] function can be used to create a POSIXlt object.
 #'
 #' @examples
-#' tme <- tmecreate(2010, 1)
+#' tme <- tmecreate(2019, 1)
 #' plot(hourly_precip~as.POSIXct(tme), type = "l", xlab = "Month",
 #' ylab = "Precipitation")
 #' bio15(hourly_precip, tme)
@@ -36,6 +38,7 @@ bio15 <- function(prec, tme) {
       mprec <- function(i, period, id, prec) {
         prec_mod <- c(prec, prec)
         prec_mean <- mean(prec_mod[i: (i + (period * id) - 1)], na.rm = TRUE)
+        return(prec_mean)
       }
       # 3 monthly means for each prec var
       mseas <- sapply(c(1:length(prec)), FUN = mprec, period = period, id = id,
