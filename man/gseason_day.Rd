@@ -29,13 +29,13 @@ a vector of binary values indicating day (1) or night (0).
 (0) hours.
 }
 \examples{
-# daytime hours in Porthleven, Cornwall for 2010.
-tme <- tmecreate(2010, 1)
+# daytime hours in Porthleven, Cornwall for 2019.
+tme <- tmecreate(2019, 1)
 gseason_day(tme, 50.08, -5.31)
 
 }
 \seealso{
 the \code{\link[=tmecreate]{tmecreate()}} function can be used to create a POSIXlt object.
 
-Requires wrapper function \code{sisimple} to be loaded.
+requires wrapper function \code{sisimple} to be loaded.
 }

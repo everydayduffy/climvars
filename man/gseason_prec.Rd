@@ -18,8 +18,8 @@ value.}
 \item{tme2}{a \code{POSIXlt} object representing the date and time of each \code{evap}
 value.}
 
-\item{nday}{a single numeric deifning the number of days over which to smooth
-the data.}
+\item{nday}{a single numeric value defining the number of days over which to
+smooth the data.}
 }
 \value{
 A time-series object of binary values, where 1 indicates growing
@@ -31,7 +31,7 @@ precipitation exceeds half the potential evapotranspiration.
 }
 \details{
 The growing season is defined as the period when precipitation
-exceeds half the potential evapotranspiration. If prec and evap have
+exceeds half the potential evapotranspiration. If \code{prec} and \code{evap} have
 differing temporal resolutions, data are aggregated to the coarser of the
 two. More about smoothing....
 }

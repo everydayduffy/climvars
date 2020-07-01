@@ -11,8 +11,9 @@ Description: The functions in the climvars package contain tools for
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
-Remotes: ilyamaclean/microclima
-Remotes: ilyamaclean/ecohydrotools
+Remotes: 
+    ilyamaclean/microclima,
+    ilyamaclean/ecohydrotools
 Imports:
     raster (>= 2.5.8),
     sp (>= 1.2),

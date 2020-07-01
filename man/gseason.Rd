@@ -46,11 +46,11 @@ decimal degrees).}
 \item{lower}{defines lower temperature limit where plant growth ceases
 (degrees Celcius) and growing season is switched off.}
 
-\item{upper}{defines upper temeprature limit where plant growth ceases
+\item{upper}{defines upper temperature limit where plant growth ceases
 (degrees Celcius) and growing season is switched off.}
 
-\item{nday}{specifies the number of consecutive days of temperatures above
-\code{lower} or below \code{upper} before growing season start/end is accepted.}
+\item{nday}{a single numeric value defining the number of days over which to
+smooth the data.}
 
 \item{daynight}{if TRUE, growing season is continuous over 24 hours, if
 FALSE, only calculates growing season during the day.}
@@ -75,16 +75,12 @@ The growing season period is defined as the period where
 temperatures are >5 degree Celcius and <35 degree Celcius and precipitation0.5 PET.
 }
 \examples{
-temps <- hourly_temps
-prec <- hourly_precip
-evap <- hourly_pev
-
-tme1 <- tmecreate(2010,1)
-tme2 <- tmecreate(2010,1)
-tme3 <- tmecreate(2010,1)
+tme <- tmecreate(2010,1)
 lon <- -5
 lat <- 52
-out <- gseason(temps, prec, evap, tme1, tme2, tme3, lon, lat)
+gseason(hourly_temps, hourly_precip, hourly_pev, tme, tme, tme, lon, lat)
+gseason(hourly_temps, hourly_precip, hourly_pev, tme, tme, tme, lon, lat,
+daynight = FALSE)
 
 }
 \seealso{

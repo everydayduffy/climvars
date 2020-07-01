@@ -25,10 +25,12 @@ period.
 Each provided precipitation data point is treated as the start of a
 91 day period for which mean temperature is calculated. The differences
 between consecutive 91 day means are then calculated, and the greatest
-absolute difference returned.
+absolute difference returned. Mean values are calculated at the temporal
+resolution of the input data (i.e. hourly, six-hourly or daily means yield
+different results).
 }
 \examples{
-tme <- tmecreate(2010, 1)
+tme <- tmecreate(2019, 1)
 plot(hourly_precip~as.POSIXct(tme), type = "l", xlab = "Month",
 ylab = "Precipitation")
 bio15(hourly_precip, tme)

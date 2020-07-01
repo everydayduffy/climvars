@@ -38,11 +38,11 @@ performed on all data and a single value returned.
 }
 \examples{
 # hourly
-tme1 <- tmecreate(2010, 1)
+tme1 <- tmecreate(2019, 1)
 # 6-hourly
-tme2 <- tmecreate(2010, 6)
+tme2 <- tmecreate(2019, 6)
 # daily
-tme3 <- tmecreate(2010, 24)
+tme3 <- tmecreate(2019, 24)
 plot(hourly_precip~as.POSIXct(tme1), type = "l", xlab = "Month",
 ylab = "Precipitation")
 bio18(hourly_temps, hourly_precip, tme1, tme2)

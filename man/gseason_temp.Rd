@@ -3,7 +3,7 @@
 \name{gseason_temp}
 \alias{gseason_temp}
 \title{gseason_temp: Calculate the growing season period as determined by
-temperature values.}
+temperature.}
 \usage{
 gseason_temp(temps, tme, lower = 5, upper = 35, nday = 5)
 }
@@ -17,8 +17,8 @@ gseason_temp(temps, tme, lower = 5, upper = 35, nday = 5)
 
 \item{upper}{integer specifying upper temperature limit of growing season.}
 
-\item{nday}{specifies the number of consecutive days of temperatures above
-'lower' or below 'upper' before growing season start/end is accepted.}
+\item{nday}{a single numeric value defining the number of days over which to
+smooth the data.}
 }
 \value{
 A time-series object of binary values, where 1 indicates growing
@@ -29,11 +29,11 @@ season and 0 indicates not growing season.
 temperatures are above 'lower' and below 'upper' specified limits.
 }
 \details{
-To satisfy the requirements for \code{tme}, a POSIXlt object can be
-created using the \code{tmecreate} wrapper function.
+A filter is used to create a moving window mean of temperatures. The
+extent of the filter is determined by \code{nday}.
 }
 \examples{
-tme <- tmecreate(2010, 1)
+tme <- tmecreate(2019, 1)
 gseast <- gseason_temp(temps = hourly_temps, tme)
 plot(gseast)
 
