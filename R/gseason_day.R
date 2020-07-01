@@ -19,18 +19,17 @@
 #' @export
 #'
 #' @seealso the [tmecreate()] function can be used to create a POSIXlt object.
-#' @seealso Requires wrapper function `sisimple` to be loaded.
+#' @seealso requires wrapper function `sisimple` to be loaded.
 #'
 #' @examples
-#' # daytime hours in Porthleven, Cornwall for 2010.
-#' tme <- tmecreate(2010, 1)
+#' # daytime hours in Porthleven, Cornwall for 2019.
+#' tme <- tmecreate(2019, 1)
 #' gseason_day(tme, 50.08, -5.31)
 #'
-gseason_day <- function(tme, lat, lon, merid = 0, dst =0) {
+gseason_day <- function(tme, lat, lon, merid = 0, dst = 0) {
   jd <- microclima::julday(tme$year + 1900, tme$mon + 1, tme$mday)
   lt <- tme$hour + tme$min / 60 + tme$sec / 3600
   si <- sisimple(lt, lat, lon, jd, merid, dst)
-  gs <- ifelse(si > 0, 1, 0)
-  gs
+  gsd <- ifelse(si > 0, 1, 0)
+  return(gsd)
 }
-

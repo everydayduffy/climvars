@@ -10,15 +10,15 @@
 #' value.
 #' @param tme2 a `POSIXlt` object representing the date and time of each `evap`
 #' value.
-#' @param nday a single numeric deifning the number of days over which to smooth
-#' the data.
+#' @param nday a single numeric value defining the number of days over which to
+#' smooth the data.
 #'
 #' @return A time-series object of binary values, where 1 indicates growing
 #' season and 0 indicates not growing season.
 #' @export
 #'
 #' @details The growing season is defined as the period when precipitation
-#' exceeds half the potential evapotranspiration. If prec and evap have
+#' exceeds half the potential evapotranspiration. If `prec` and `evap` have
 #' differing temporal resolutions, data are aggregated to the coarser of the
 #' two. More about smoothing....
 #'
@@ -42,12 +42,12 @@ gseason_prec <- function(prec, evap, tme1, tme2, nday = 5) {
     id <- 86400 / (as.numeric(tme1[2]) - as.numeric(tme1[1]))
     id2 <- 86400 / (as.numeric(tme2[2]) - as.numeric(tme2[1]))
     # if evap is coarser tme than prec, then aggregate prec
-    if(tme2[2] - tme2[1] > tme1[2] - tme1[1]) {
+    if(id2 < id) {
       sq <- rep(1:length(tme2), each = id/id2)
       prec <- aggregate(prec, by = list(sq), FUN = sum, na.rm = TRUE)$x
       time_step <- id2
       # if prec is coarser tme than evap, then aggregate evap
-    } else if(tme1[2] - tme1[1] > tme2[2] - tme2[1]) {
+    } else if(id < id2) {
       sq <- rep(1:length(tme1), each = id2/id)
       evap <- aggregate(evap, by = list(sq), FUN = sum, na.rm = TRUE)$x
       time_step <- id
@@ -55,10 +55,12 @@ gseason_prec <- function(prec, evap, tme1, tme2, nday = 5) {
       time_step <- id
     }
     # moving window mean of prec and evap
-    smooth_prec <- filter(prec, filter = rep(1/(nday*time_step), nday*time_step),
-                          sides = 2, circular = TRUE)
-    smooth_evap <- filter(evap, filter = rep(1/(nday*time_step), nday*time_step),
-                          sides = 2, circular = TRUE)
+    smooth_prec <- stats::filter(prec, filter = rep(1/(nday*time_step),
+                                                    nday*time_step), sides = 2,
+                                 circular = TRUE)
+    smooth_evap <- stats::filter(evap, filter = rep(1/(nday*time_step),
+                                                    nday*time_step), sides = 2,
+                                 circular = TRUE)
     # work out gseason for prec
     h_smooth_evap <- smooth_evap/2
     gsp <- smooth_prec

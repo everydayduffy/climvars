@@ -21,8 +21,8 @@
 #' (degrees Celcius) and growing season is switched off.
 #' @param upper defines upper temperature limit where plant growth ceases
 #' (degrees Celcius) and growing season is switched off.
-#' @param nday specifies the number of consecutive days of temperatures above
-#' `lower` or below `upper` before growing season start/end is accepted.
+#' @param nday a single numeric value defining the number of days over which to
+#' smooth the data.
 #' @param daynight if TRUE, growing season is continuous over 24 hours, if
 #' FALSE, only calculates growing season during the day.
 #' @param merid an optional numeric value representing the longitude (decimal
