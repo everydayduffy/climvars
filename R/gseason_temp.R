@@ -29,7 +29,7 @@
 
 gseason_temp <- function(temps, tme, lower = 5, upper = 35, nday = 5) {
   if (length(unique(tme$year)) > 1) warnb()
-  if (is.na(sd(prec, na.rm = TRUE)) | is.na(sd(evap, na.rm = TRUE))) {
+  if (is.na(sd(temps, na.rm = TRUE))) {
     gst <- NA
   } else {
     dint <- (24 * 3600) / (as.numeric(tme[2]) - as.numeric(tme[1]))
@@ -42,3 +42,4 @@ gseason_temp <- function(temps, tme, lower = 5, upper = 35, nday = 5) {
   }
   return(as.vector(gst))
 }
+

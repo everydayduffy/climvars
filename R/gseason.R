@@ -48,7 +48,7 @@
 #' @seealso [tmecreate()] can be used to create a POSIXlt object.
 #'
 #' @examples
-#' tme <- tmecreate(2010,1)
+#' tme <- tmecreate(2019,1)
 #' lon <- -5
 #' lat <- 52
 #' gseason(hourly_temps, hourly_precip, hourly_pev, tme, tme, tme, lon, lat)
@@ -62,7 +62,7 @@ gseason <- function(temps, prec, evap, tme1, tme2, tme3, lon, lat, lower = 5,
   gprec <- gseason_prec(prec, evap, tme2, tme3, p_nday)
   if (daynight == FALSE) {
     gdn <- gseason_day(tme1, lat, lon, merid, dst)
-    gscombo <- gprec * gtemp * gdn
+    gscombo <- gtemp * gprec * gdn
   } else {
     gscombo <- gtemp * gprec
   }
