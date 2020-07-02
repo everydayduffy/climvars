@@ -58,6 +58,11 @@
 #' ERA-5 Land dataset. Data for a location near Kinlochewe, Scotland (-5.2,
 #' 57.6).
 #'
+#' Note: "The ECMWF Integrated Forecasting System convention is that
+#' downward fluxes are positive. Therefore, negative values indicate evaporation
+#' and positive values indicate condensation." Values have been multiplied by -1
+#' so that evaporation is positive and consensation is negative.
+#'
 #' @format A numeric vector of potential evaporation (mm/hour).
 #' @source \url{https://www.ecmwf.int/en/era5-land}
 "hourly_pev"
@@ -67,6 +72,11 @@
 #' ERA-5 Land dataset. Data for a location near Kinlochewe, Scotland (-5.2,
 #' 57.6).
 #'
+#' Note: "The ECMWF Integrated Forecasting System convention is that
+#' downward fluxes are positive. Therefore, negative values indicate evaporation
+#' and positive values indicate condensation." Values have been multiplied by -1
+#' so that evaporation is positive and consensation is negative.
+#'
 #' @format A numeric vector of potential evaporation (mm/six-hour).
 #' @source \url{https://www.ecmwf.int/en/era5-land}
 "six_hourly_pev"
@@ -75,6 +85,11 @@
 #' A dataset containing daily potential evaporation for 2019 from the
 #' ERA-5 Land dataset. Data for a location near Kinlochewe, Scotland (-5.2,
 #' 57.6).
+#'
+#' Note: "The ECMWF Integrated Forecasting System convention is that
+#' downward fluxes are positive. Therefore, negative values indicate evaporation
+#' and positive values indicate condensation." Values have been multiplied by -1
+#' so that evaporation is positive and consensation is negative.
 #'
 #' @format A numeric vector of potential evaporation (mm/day).
 #' @source \url{https://www.ecmwf.int/en/era5-land}
