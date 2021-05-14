@@ -28,17 +28,13 @@ bio11 <- function(temps, tme) {
     tcold <- NA
   else {
     if (length(unique(tme$year)) > 1) warnb()
-    qtr <- function(i, int) {
-      tw <- c(temps, temps)
-      me <- mean(tw[i: (i + int)], na.rm = TRUE)
-      me
-    }
     id <- (as.numeric(tme[2]) - as.numeric(tme[1])) / 86400
     int <- 91 / id
-    cq <- sapply(c(1:length(temps)), qtr, int)
+    cq <- sapply(c(1:length(temps)), qtr, int = int, climval = temps)
     i <- which(cq == min(cq, na.rm = TRUE))[1]
     tte <- c(temps, temps)
     tcold <- mean(tte[i:(i + int)], na.rm = TRUE)
   }
   return(tcold)
 }
+

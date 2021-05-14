@@ -62,14 +62,9 @@ bio9 <- function(temps, prec, tme1, tme2) {
     } else {
       time_step <- id
     }
-    # function to calculate total prec over x period
-    prec_calc <- function(i, period, id, prec) {
-      prec_mod <- c(prec, prec)
-      prec_sum <- sum(prec_mod[i: (i + (period * id) - 1)], na.rm = TRUE)
-    }
     # 3 monthly sums for each prec value
-    sum_prec <- sapply(c(1:length(temps)), FUN = prec_calc, period = period,
-                       id = time_step, prec = prec)
+    sum_prec <- sapply(c(1:length(temps)), FUN = sum_climval, period = period,
+                       id = time_step, climval = prec)
     dry_id <- which(sum_prec == min(sum_prec, na.rm = TRUE))[1]
     temps2 <- c(temps,temps)
     tdry <- mean(temps2[dry_id:(dry_id + period * time_step)], na.rm = TRUE)

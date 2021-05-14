@@ -37,14 +37,9 @@ bio4 <- function(temps, tme) {
       if (length(unique(tme$year)) > 1) warnb()
       period <- 91
       id <- 86400 / (as.numeric(tme[2]) - as.numeric(tme[1])) # num temps per day
-      # function to calculate mean temps over x period
-      mtemps <- function(i, period, id, temps) {
-        temps_mod <- c(temps, temps)
-        temps_mean <- mean(temps_mod[i: (i + (period * id) - 1)], na.rm = TRUE)
-      }
       # 3 monthly means for each temp value
-      mseas <- sapply(c(1:length(temps)), FUN = mtemps, period = period,
-                      id = id, temps = temps)
+      mseas <- sapply(c(1:length(temps)), FUN = mean_climval, period = period,
+                      id = id, climval = temps)
       # lagged differences
       diffs <- abs(diff(mseas, lag = period * id))
       tseas <- max(diffs, na.rm = TRUE)
