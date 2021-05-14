@@ -37,6 +37,7 @@
 #' plot(hourly_precip~as.POSIXct(tme1), type = "l", xlab = "Month",
 #' ylab = "Precipitation")
 #' bio8(hourly_temps, hourly_precip, tme1, tme1)
+#' bio8(hourly_temps, six_hourly_precip, tme1, tme2)
 #' bio8(hourly_temps, daily_precip, tme1, tme3)
 
 bio8 <- function(temps, prec, tme1, tme2) {
