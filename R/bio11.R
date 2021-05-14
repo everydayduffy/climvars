@@ -21,7 +21,7 @@
 #' tme <- tmecreate(2010, 1)
 #' plot(hourly_temps~as.POSIXct(tme), type = "l", xlab = "Month",
 #' ylab = "Temperature")
-#' bio11(temps, tme)
+#' bio11(hourly_temps, tme)
 
 bio11 <- function(temps, tme) {
   if (is.na(sd(temps, na.rm = TRUE)))
