@@ -23,9 +23,11 @@
 #'
 #' @examples
 #' tme <- tmecreate(2019, 1)
+#' tme2 <- tmecreate(2019, 24)
 #' plot(hourly_precip~as.POSIXct(tme), type = "l", xlab = "Month",
 #' ylab = "Precipitation")
 #' bio15(hourly_precip, tme)
+#' bio15(daily_precip, tme2)
 
 bio15 <- function(prec, tme) {
   if (is.na(sd(prec, na.rm = TRUE)))
@@ -33,13 +35,7 @@ bio15 <- function(prec, tme) {
     else {
       if (length(unique(tme$year)) > 1) warnb()
       period <- 91
-      id <- 86400 / (as.numeric(tme[2]) - as.numeric(tme[1])) # num temps per day
-      # function to calculate mean prec over x period
-      mprec <- function(i, period, id, prec) {
-        prec_mod <- c(prec, prec)
-        prec_mean <- mean(prec_mod[i: (i + (period * id) - 1)], na.rm = TRUE)
-        return(prec_mean)
-      }
+      id <- 86400 / (as.numeric(tme[2]) - as.numeric(tme[1])) # num values per day
       # 3 monthly means for each prec var
       mseas <- sapply(c(1:length(prec)), FUN = mprec, period = period, id = id,
                       prec = prec)
