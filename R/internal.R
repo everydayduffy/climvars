@@ -27,10 +27,35 @@ sum_climval <- function(i, period, id, climval) {
 #' function to calculate the mean of climate values for a quarter of year
 #' @param i starting index position in climate value in `climval`
 #' @param int number of climate values per quarter (91 days)
+#' @param climval vector of climate data
 #' @return mean value of climval
 #' @noRd
 qtr <- function(i, int, climval) {
-  tw <- c(temps, temps)
-  me <- mean(tw[i: (i + int)], na.rm = TRUE)
-  me
+  dclim <- c(climval, climval)
+  mclim <- mean(dclim[i: (i + int)], na.rm = TRUE)
+  return(mclim)
+}
+
+#' function to calculate the sum of climate values for a quarter of year
+#' @param i starting index position in climate value in `climval`
+#' @param int number of climate values per quarter (91 days)
+#' @param climval vector of climate data
+#' @return mean value of climval
+#' @noRd
+qtr2 <- function(i, int, climval) {
+  dclim <- c(climval, climval)
+  sclim <- sum(dclim[i: (i + int)], na.rm = TRUE)
+  return(sclim)
+}
+
+#' function to calculate the sum of climate values for a defined period
+#' @param i starting index position in climate value in `climval`
+#' @param period number of days
+#' @param climval vector of climate data
+#' @return mean value of climval
+#' @noRd
+qtr3 <- function(i, period, climval) {
+  dclim <- c(climval, climval)
+  sclim <- sum(dclim[i: (i + (period-1))], na.rm = TRUE)
+  return(sclim)
 }

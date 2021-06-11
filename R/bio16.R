@@ -28,14 +28,9 @@ bio16 <- function(prec, tme) {
     pwet <- NA
   else {
     if (length(unique(tme$year)) > 1) warnb()
-    qtr <- function(i, int) {
-      pw <- c(prec, prec)
-      su <- sum(pw[i: (i + int)], na.rm = TRUE)
-      su
-    }
     id <- (as.numeric(tme[2]) - as.numeric(tme[1])) / 86400
     int <- 91 / id
-    wq <- sapply(c(1:length(prec)), qtr, int)
+    wq <- sapply(c(1:length(prec)), qtr2, int)
     i <- which(wq == max(wq, na.rm = TRUE))[1]
     pre2 <- c(prec, prec)
     pwet <- sum(pre2[i:(i + int)], na.rm = TRUE)

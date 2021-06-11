@@ -32,13 +32,8 @@ bio14 <- function(prec, tme, period = 7) {
   if (is.na(sd(prec, na.rm = TRUE)))
     wp <- NA
   else {
-    qtr <- function(i, period, prec) {
-      prec_mod <- c(prec, prec)
-      prec_sum <- sum(prec_mod[i: (i + (period-1))], na.rm = TRUE)
-      return(prec_sum)
-    }
     dprec <- aggregate(prec, by = list(tme$yday), FUN = sum, na.rm = TRUE)$x
-    pprd <- sapply(c(1:length(dprec)), qtr, period, dprec) # for each day work out sum precip for period
+    pprd <- sapply(c(1:length(dprec)), qtr3, period, dprec) # for each period work out sum precip for period
     wp <- min(pprd)
   }
   return(wp)
